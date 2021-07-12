@@ -1,30 +1,27 @@
 package com.hp.atm;
 
-import com.hp.bean.Customer;
-import com.hp.bean.CustomerData;
+import com.hp.service.CustomerService;
 import com.hp.util.TextUtil;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class AtmMain {
 
-    private static String cradid;
-    private static String cradpwd;
     private static String cardid;
     private static String cardpwd;
-
+    private static CustomerService customerService;
     public static void main(String[] args) {
+        customerService=new CustomerService();
      //测试 客户类的数据
-        CustomerData customerData =CustomerData .getInstance();
-        List<Customer> customerList=customerData.getCustomerList();
+       // CustomerData customerData =CustomerData .getInstance();
+        //List<Customer> customerList=customerData.getCustomerList();
   /*      for (Customer customer : customerList) {
             System.out.println("customer = " + customer);
         }
    */  //welcome阶段
         TextUtil.welcome();
      // 输入账户密码阶段  
-        dowritePassword();
+
      //其他操作
        // 1.校验角色，2.判断账户密码的正确性
        int i=0;
@@ -45,6 +42,7 @@ public class AtmMain {
         // 1.校验角色,判断cardid的长度
         if (cardid.length() == 8) {//客户
             //校验密码
+            customerService.checkPwd(cardid,cardpwd);
         }
         // 2.判断账户密码的正确性
     }
